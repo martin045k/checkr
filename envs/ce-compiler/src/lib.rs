@@ -56,7 +56,7 @@ impl Env for CompilerEnv {
         let o_g =
             dot::dot_to_petgraph(&Self::run(input)?.dot).expect("we always produce valid dot");
 
-        if action_bag(&o_g) != action_bag(&t_g) {
+        if action_bag(&o_g) != action_bag(&t_g) || !dot::simple_check_eq(&Self::run(input)?.dot, &output.dot) {
             Ok(ValidationResult::Mismatch {
                 reason: "the graphs have different structure".to_string(),
             })
